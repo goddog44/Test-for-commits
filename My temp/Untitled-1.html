@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>eWorkPermit - Demande de Visa de Travail</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            /* Reset CSS de base */
+            *, *::before, *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            
+            /* Variables de couleurs */
+            :root {
+                --color-primary: #5D8B5A;
+                --color-primary-dark: #4a6f47;
+                --color-primary-light: #78a775;
+                --color-secondary: #3498db;
+                --color-secondary-dark: #2980b9;
+                --color-background-light: #FFFFFF;
+                --color-background-dark: #181818;
+                --color-text-light: #333333;
+                --color-text-dark: #F5F5F5;
+                --color-gray-100: #f3f4f6;
+                --color-gray-200: #e5e7eb;
+                --color-gray-300: #d1d5db;
+                --color-gray-400: #9ca3af;
+                --color-gray-500: #6b7280;
+                --color-gray-600: #4b5563;
+                --color-gray-700: #374151;
+                --color-gray-800: #1f2937;
+                --color-gray-900: #111827;
+                --color-green-50: #f0fdf4;
+                --color-green-500: #22c55e;
+                --color-green-700: #15803d;
+                --color-green-800: #166534;
+                --color-green-900: #14532d;
+                --color-red-500: #ef4444;
+                --color-yellow-400: #facc15;
+                --color-yellow-600: #ca8a04;
+            }
+            
+            /* Styles généraux */
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                min-height: 100vh;
+                background-color: var(--color-background-light);
+                color: var(--color-text-light);
+                line-height: 1.5;
+                transition: background-color 0.2s, color 0.2s;
+            }
+            
+            .dark {
+                background-color: var(--color-background-dark);
+                color: var(--color-text-dark);
+            }
+            
+            .container {
+                width: 100%;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 1rem;
+            }
+            
+            /* Header */
+            header {
+                background-color: var(--color-primary);
+                color: white;
+                padding: 1rem 1.5rem;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            }
+            
+            header .container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            header a {
+                color: white;
+                text-decoration: none;
+                font-size: 1.5rem;
+                font-weight: 700;
+            }
+            
+            @media (min-width: 768px) {
+                header a {
+                    font-size: 1.75rem;
+                }
+            }
+            
+            /* Boutons */
+            button {
+                cursor: pointer;
+                font-family: inherit;
+                border: none;
+                outline: none;
+            }
+            
+            .btn {
+                display: inline-block;
+                padding: 0.5rem 1.5rem;
+                border-radius: 0.5rem;
+                font-weight: 500;
+                transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+                text-align: center;
+            }
+            
+            .btn-primary {
+                background-color: var(--color-primary);
+                color: white;
+            }
+            
+            .btn-primary:hover {
+                background-color: var(--color-primary-dark);
+            }
+            
+            .btn-outline {
+                border: 1px solid var(--color-primary);
+                color: var(--color-primary);
+                background-color: transparent;
+            }
+            
+            .btn-outline:hover {
+                background-color: var(--color-primary-light);
+                color: white;
+            }
+            
+            /* Formulaires */
+            .form-group {
+                margin-bottom: 1rem;
+            }
+            
+            label {
+                display: block;
+                font-size: 0.875rem;
+                margin-bottom: 0.25rem;
+                font-weight: 500;
+            }
+            
+            input, select {
+                width: 100%;
+                padding: 0.5rem 0.75rem;
+                border: 1px solid var(--color-gray-300);
+                border-radius: 0.5rem;
+                font-size: 1rem;
+                background-color: white;
+                color: var(--color-text-light);
+                outline: none;
+                transition: border-color 0.3s, box-shadow 0.3s;
+            }
+            
+            .dark input, .dark select {
+                background-color: var(--color-gray-700);
+                border-color: var(--color-gray-600);
+                color: white;
+            }
+            
+            input:focus, select:focus {
+                border-color: var(--color-primary);
+                box-shadow: 0 0 0 3px rgba(93, 139, 90, 0.2);
+            }
+            
+            /* Cartes */
+            .card {
+                background-color: white;
+                border-radius: 0.5rem;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            
+            .dark .card {
+                background-color: var(--color-gray-800);
+            }
+            
+            /* Grille */
+            .grid {
+                display: grid;
+                gap: 1rem;
+            }
+            
+            .grid-cols-1 {
+                grid-template-columns: 1fr;
+            }
+            
+            @media (min-width: 768px) {
+                .grid-cols-2-md {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+            
+            /* Flexbox */
+            .flex {
+                display: flex;
+            }
+            
+            .flex-col {
+                flex-direction: column;
+            }
+            
+            .items-center {
+                align-items: center;
+            }
+            
+            .justify-between {
+                justify-content: space-between;
+            }
+            
+            .justify-center {
+                justify-content: center;
+            }
+            
+            .justify-end {
+                justify-content: flex-end;
+            }
+            
+            .space-x-4 > * + * {
+                margin-left: 1rem;
+            }
+            
+            .space-y-4 > * + * {
+                margin-top: 1rem;
+            }
+            
+            .space-y-6 > * + * {
+                margin-top: 1.5rem;
+            }
+            
+            /* Marges */
+            .m-1 { margin: 0.25rem; }
+            .m-2 { margin: 0.5rem; }
+            .m-4 { margin: 1rem; }
+            .m-6 { margin: 1.5rem; }
+            .m-8 { margin: 2rem; }
+            
+            .mx-auto { margin-left: auto; margin-right: auto; }
+            .mx-2 { margin-left: 0.5rem; margin-right: 0.5rem; }
+            .mx-4 { margin-left: 1rem; margin-right: 1rem; }
+            
+            .my-2 { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+            .my-4 { margin-top: 1rem; margin-bottom: 1rem; }
+            .my-6 { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+            .my-8 { margin-top: 2rem; margin-bottom: 2rem; }
+            
+            .mt-1 { margin-top: 0.25rem; }
+            .mt-2 { margin-top: 0.5rem; }
+            .mt-4 { margin-top: 1rem; }
+            .mt-8 { margin-top: 2rem; }
+            .mt-12 { margin-top: 3rem; }
+            
+            .mb-1 { margin-bottom: 0.25rem; }
+            .mb-2 { margin-bottom: 0.5rem; }
+            .mb-4 { margin-bottom: 1rem; }
+            .mb-6 { margin-bottom: 1.5rem; }
+            .mb-8 { margin-bottom: 2rem; }
+            
+            .ml-1 { margin-left: 0.25rem; }
+            .ml-2 { margin-left: 0.5rem; }
+            .ml-4 { margin-left: 1rem; }
+            .ml-auto { margin-left: auto; }
+            
+            .mr-1 { margin-right: 0.25rem; }
+            .mr-2 { margin-right: 0.5rem; }
+            .mr-3 { margin-right: 0.75rem; }
+            .mr-4 { margin-right: 1rem; }
+            
+            /* Padding */
+            .p-1 { padding: 0.25rem; }
+            .p-2 { padding: 0.5rem; }
+            .p-4 { padding: 1rem; }
+            .p-6 { padding: 1.5rem; }
+            
+            .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+            .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+            .px-4 { padding-left: 1rem; padding-right: 1rem; }
+            .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+            
+            .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+            .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+            .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+            .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+            .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+            
+            /* Texte */
+            .text-center { text-align: center; }
+            .text-right { text-align: right; }
+            
+            .text-xs { font-size: 0.75rem; }
+            .text-sm { font-size: 0.875rem; }
+            .text-base { font-size: 1rem; }
+            .text-lg { font-size: 1.125rem; }
+            .text-xl { font-size: 1.25rem; }
+            .text-2xl { font-size: 1.5rem; }
+            
+            .font-medium { font-weight: 500; }
+            .font-semibold { font-weight: 600; }
+            .font-bold { font-weight: 700; }
+            
+            .text-white { color: white; }
+            .text-primary { color: var(--color-primary); }
+            .text-gray-400 { color: var(--color-gray-400); }
+            .text-gray-500 { color: var(--color-gray-500); }
+            .text-gray-600 { color: var(--color-gray-600); }
+            .text-gray-700 { color: var(--color-gray-700); }
+            .text-green-700 { color: var(--color-green-700); }
+            .text-green-800 { color: var(--color-green-800); }
+            .text-yellow-600 { color: var(--color-yellow-600); }
+            
+            .dark .text-gray-400 { color: var(--color-gray-400); }
+            .dark .text-gray-300 { color: var(--color-gray-300); }
+            
+            /* Bordures */
+            .border { border-width: 1px; border-style: solid; }
+            .border-2 { border-width: 2px; border-style: solid; }
+            .border-b { border-bottom-width: 1px; border-bottom-style: solid; }
+            .border-b-2 { border-bottom-width: 2px; border-bottom-style: solid; }
+            
+            .border-gray-300 { border-color: var(--color-gray-300); }
+            .border-gray-600 { border-color: var(--color-gray-600); }
+            .border-primary { border-color: var(--color-primary); }
+            .border-green-200 { border-color: #bbf7d0; }
+            .border-green-900 { border-color: var(--color-green-900); }
+            
+            .rounded { border-radius: 0.25rem; }
+            .rounded-lg { border-radius: 0.5rem; }
+            .rounded-full { border-radius: 9999px; }
+            
+            /* Autres */
+            .hidden { display: none; }
+            .block { display: block; }
+            .inline-block { display: inline-block; }
+            .relative { position: relative; }
+            .absolute { position: absolute; }
+            .fixed { position: fixed; }
+            .w-full { width: 100%; }
+            .h-1 { height: 0.25rem; }
+            .h-10 { height: 2.5rem; }
+            .w-6 { width: 1.5rem; }
+            .h-6 { height: 1.5rem; }
+            .w-10 { width: 2.5rem; }
+            .w-24 { width: 6rem; }
+            .h-16 { height: 4rem; }
+            .w-28 { width: 7rem; }
+            
+            .z-10 { z-index: 10; }
+            .z-50 { z-index: 50; }
+            
+            .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+            .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+            
+            .bg-white { background-color: white; }
+            .bg-primary { background-color: var(--color-primary); }
+            .bg-primary-dark { background-color: var(--color-primary-dark); }
+            .bg-gray-100 { background-color: var(--color-gray-100); }
+            .bg-gray-300 { background-color: var(--color-gray-300); }
+            .bg-gray-700 { background-color: var(--color-gray-700); }
+            .bg-gray-800 { background-color: var(--color-gray-800); }
+            .bg-gray-900 { background-color: var(--color-gray-900); }
+            .bg-green-50 { background-color: var(--color-green-50); }
+            .bg-green-500 { background-color: var(--color-green-500); }
+            .bg-yellow-500 { background-color: var(--color-yellow-400); }
+            .bg-red-500 { background-color: var(--color-red-500); }
+            
+            .dark .bg-gray-700 { background-color: var(--color-gray-700); }
+            .dark .bg-gray-800 { background-color: var(--color-gray-800); }
+            .dark .bg-gray-900 { background-color: var(--color-gray-900); }
+            .dark .bg-green-900\/20 { background-color: rgba(20, 83, 45, 0.2); }
+            
+            /* Animations */
+            .fade-in {
+                animation: fadeIn 0.3s ease-in-out;
+            }
+    
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            
+            .slide-in {
+                animation: slideIn 0.3s ease-in-out;
+            }
+            
+            @keyframes slideIn {
+                from { transform: translateY(20px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+    
+            .step {
+                transition: all 0.3s ease;
+            }
+            
+            .step.active {
+                border-color: var(--color-primary);
+                background-color: var(--color-primary);
+                color: white;
+            }
+            
+            .step-line {
+                transition: all 0.3s ease;
+            }
+            
+            .step-line.active {
+                background-color: var(--color-primary);
+            }
+            
+            .dark .step.active {
+                border-color: var(--color-primary-light);
+                background-color: var(--color-primary-light);
+            }
+            
+            .dark .step-line.active {
+                background-color: var(--color-primary-light);
+            }
+    
+            /* Notification */
+            #notification {
+                transform: translateY(20px);
+                opacity: 0;
+                transition: all 0.3s ease;
+            }
+            
+            /* Responsive */
+            @media (max-width: 768px) {
+                .md\:hidden {
+                    display: none;
+                }
+                
+                .md\:flex {
+                    display: flex;
+                }
+                
+                .md\:col-span-2 {
+                    grid-column: span 2 / span 2;
+                }
+            }
+            
+            @media (min-width: 768px) {
+                .md\:block {
+                    display: block;
+                }
+                
+                .md\:flex {
+                    display: flex;
+                }
+                
+                .md\:grid-cols-2 {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                
+                .md\:flex-row {
+                    flex-direction: row;
+                }
+                
+                .md\:mb-0 {
+                    margin-bottom: 0;
+                }
+                
+                .md\:text-3xl {
+                    font-size: 1.875rem;
+                }
+                
+                .md\:col-span-2 {
+                    grid-column: span 2 / span 2;
+                }
+                
+                .hidden.md\:flex {
+                    display: flex;
+                }
+                
+                .md\:hidden {
+                    display: none;
+                }
+            }
+        </style>
+    </head>
+<body class="min-h-screen bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark transition-colors duration-200">
+    <header class="bg-primary text-white py-4 px-6 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl md:text-3xl font-bold">eWorkPermit</a>
+            <div class="flex items-center space-x-4">
+                <button id="dark-mode-toggle" class="p-2 rounded-full hover:bg-primary-dark transition-colors">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                <div class="relative">
+                    <button id="lang-toggle" class="flex items-center space-x-1 p-2 rounded hover:bg-primary-dark transition-colors">
+                        <span>FR</span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
+                    <div id="lang-dropdown" class="absolute right-0 mt-2 w-28 bg-white dark:bg-gray-800 rounded shadow-lg py-1 hidden z-10">
+                        <a href="#" class="block px-4 py-2 text-text-light dark:text-text-dark hover:bg-gray-100 dark:hover:bg-gray-700">Français</a>
+                        <a href="#" class="block px-4 py-2 text-text-light dark:text-text-dark hover:bg-gray-100 dark:hover:bg-gray-700">English</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Auth Container -->
+        <div id="auth-container" class="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
+            <div class="flex justify-center mb-6">
+                <img src="https://i.imgur.com/qYCGvl7.png" alt="eWorkPermit Logo" class="h-16">
+            </div>
+            
+            <div class="flex border-b dark:border-gray-700 mb-4">
+                <button id="login-tab" class="w-1/2 py-2 text-center font-medium text-primary border-b-2 border-primary">Se Connecter</button>
+                <button id="register-tab" class="w-1/2 py-2 text-center font-medium text-gray-500 dark:text-gray-400">S'inscrire</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="login-form" class="fade-in">
+                <div class="mb-4">
+                    <label for="login-email" class="block text-sm font-medium mb-1">Email</label>
+                    <input type="email" id="login-email" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="login-password" class="block text-sm font-medium mb-1">Mot de passe</label>
+                    <div class="relative">
+                        <input type="password" id="login-password" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="flex justify-end mt-1">
+                        <a href="#" class="text-sm text-primary hover:underline">Mot de passe oublié?</a>
+                    </div>
+                </div>
+                
+                <button type="button" id="login-button" class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2 px-4 rounded-lg transition-colors">Se Connecter</button>
+            </form>
+            
+            <!-- Register Form -->
+            <form id="register-form" class="hidden fade-in">
+                <div class="mb-4">
+                    <label for="register-name" class="block text-sm font-medium mb-1">Nom de l'entreprise</label>
+                    <input type="text" id="register-name" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="register-email" class="block text-sm font-medium mb-1">Email</label>
+                    <input type="email" id="register-email" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="register-phone" class="block text-sm font-medium mb-1">Téléphone</label>
+                    <input type="tel" id="register-phone" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="register-password" class="block text-sm font-medium mb-1">Mot de passe</label>
+                    <div class="relative">
+                        <input type="password" id="register-password" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="register-confirm-password" class="block text-sm font-medium mb-1">Confirmer le mot de passe</label>
+                    <div class="relative">
+                        <input type="password" id="register-confirm-password" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <button type="button" id="register-button" class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2 px-4 rounded-lg transition-colors">S'inscrire</button>
+            </form>
+        </div>
+        
+        <!-- Application Process Container -->
+        <div id="application-container" class="hidden max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+            <h1 class="text-2xl font-bold mb-6 text-center">Demande de Visa de Travail</h1>
+            
+            <!-- Progress Steps -->
+            <div class="flex justify-between items-center mb-8">
+                <div class="hidden md:flex w-full items-center">
+                    <div class="relative">
+                        <div class="step w-10 h-10 flex items-center justify-center rounded-full border-2 active">1</div>
+                        <div class="absolute -bottom-6 w-24 text-center text-xs">Créer la demande</div>
+                    </div>
+                    <div class="step-line flex-1 h-1 mx-2 bg-gray-300 dark:bg-gray-600"></div>
+                    <div class="relative">
+                        <div class="step w-10 h-10 flex items-center justify-center rounded-full border-2 border-gray-300 dark:border-gray-600">2</div>
+                        <div class="absolute -bottom-6 w-24 text-center text-xs">Télécharger documents</div>
+                    </div>
+                    <div class="step-line flex-1 h-1 mx-2 bg-gray-300 dark:bg-gray-600"></div>
+                    <div class="relative">
+                        <div class="step w-10 h-10 flex items-center justify-center rounded-full border-2 border-gray-300 dark:border-gray-600">3</div>
+                        <div class="absolute -bottom-6 w-24 text-center text-xs">Suivre la demande</div>
+                    </div>
+                    <div class="step-line flex-1 h-1 mx-2 bg-gray-300 dark:bg-gray-600"></div>
+                    <div class="relative">
+                        <div class="step w-10 h-10 flex items-center justify-center rounded-full border-2 border-gray-300 dark:border-gray-600">4</div>
+                        <div class="absolute -bottom-6 w-24 text-center text-xs">Retirer le visa</div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Progress Indicator -->
+                <div class="md:hidden w-full text-center">
+                    <div class="text-lg font-medium">Étape <span id="current-step">1</span> sur 4</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400" id="step-title">Créer la demande</div>
+                </div>
+            </div>
+            
+            <!-- Form Steps Container -->
+            <div class="mt-12">
+                <!-- Step 1: Create Application -->
+                <div id="step-1" class="slide-in">
+                    <h2 class="text-xl font-semibold mb-6">Informations sur le travailleur</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label for="nom" class="block text-sm font-medium mb-1">Nom et prénoms*</label>
+                            <input type="text" id="nom" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="naissance" class="block text-sm font-medium mb-1">Date de naissance*</label>
+                            <input type="date" id="naissance" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="lieu-naissance" class="block text-sm font-medium mb-1">Lieu de naissance*</label>
+                            <input type="text" id="lieu-naissance" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="genre" class="block text-sm font-medium mb-1">Genre*</label>
+                            <select id="genre" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                                <option value="">Sélectionner</option>
+                                <option value="M">Masculin</option>
+                                <option value="F">Féminin</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="nationalite" class="block text-sm font-medium mb-1">Nationalité*</label>
+                            <input type="text" id="nationalite" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="statut" class="block text-sm font-medium mb-1">Statut matrimonial*</label>
+                            <select id="statut" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                                <option value="">Sélectionner</option>
+                                <option value="celibataire">Célibataire</option>
+                                <option value="marie">Marié(e)</option>
+                                <option value="divorce">Divorcé(e)</option>
+                                <option value="veuf">Veuf/Veuve</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="enfants" class="block text-sm font-medium mb-1">Nombre d'enfants*</label>
+                            <input type="number" id="enfants" min="0" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="langue" class="block text-sm font-medium mb-1">Langue maternelle*</label>
+                            <input type="text" id="langue" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-4">Coordonnées</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label for="email" class="block text-sm font-medium mb-1">Email*</label>
+                            <input type="email" id="email" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="telephone" class="block text-sm font-medium mb-1">Numéro de téléphone*</label>
+                            <input type="tel" id="telephone" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label for="adresse" class="block text-sm font-medium mb-1">Adresse permanente*</label>
+                            <input type="text" id="adresse" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="ville" class="block text-sm font-medium mb-1">Ville*</label>
+                            <input type="text" id="ville" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="region" class="block text-sm font-medium mb-1">Région*</label>
+                            <input type="text" id="region" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-4">Contact d'urgence</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label for="urgence-nom" class="block text-sm font-medium mb-1">Nom et prénom*</label>
+                            <input type="text" id="urgence-nom" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="urgence-tel" class="block text-sm font-medium mb-1">Numéro de téléphone*</label>
+                            <input type="tel" id="urgence-tel" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="urgence-email" class="block text-sm font-medium mb-1">Email*</label>
+                            <input type="email" id="urgence-email" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end mt-8">
+                        <button type="button" id="step-1-next" class="bg-primary hover:bg-primary-dark text-white font-medium py-2 px-6 rounded-lg transition-colors">
+                            Suivant <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Work Contract Information -->
+                <div id="step-2" class="hidden slide-in">
+                    <h2 class="text-xl font-semibold mb-6">Informations sur le contrat de travail</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label for="poste" class="block text-sm font-medium mb-1">Poste occupé*</label>
+                            <input type="text" id="poste" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="date-signature" class="block text-sm font-medium mb-1">Date de signature du contrat*</label>
+                            <input type="date" id="date-signature" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="date-expiration" class="block text-sm font-medium mb-1">Date d'expiration du contrat*</label>
+                            <input type="date" id="date-expiration" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-4">Rémunération</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label for="salaire" class="block text-sm font-medium mb-1">Salaire de base (FCFA)*</label>
+                            <input type="number" id="salaire" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="indemnite-logement" class="block text-sm font-medium mb-1">Indemnité de logement (FCFA)</label>
+                            <input type="number" id="indemnite-logement" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base">
+                        </div>
+                        
+                        <div>
+                            <label for="indemnite-transport" class="block text-sm font-medium mb-1">Indemnité de transport (FCFA)</label>
+                            <input type="number" id="indemnite-transport" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base">
+                        </div>
+                        
+                        <div>
+                            <label for="indemnite-caisse" class="block text-sm font-medium mb-1">Indemnité de caisse (FCFA)</label>
+                            <input type="number" id="indemnite-caisse" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base">
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-4">Primes</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label for="prime-responsabilite" class="block text-sm font-medium mb-1">Prime de responsabilité (FCFA)</label>
+                            <input type="number" id="prime-responsabilite" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base">
+                        </div>
+                        
+                        <div>
+                            <label for="prime-representation" class="block text-sm font-medium mb-1">Prime de représentation (FCFA)</label>
+                            <input type="number" id="prime-representation" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base">
+                        </div>
+                        
+                        <div>
+                            <label for="prime-expatriation" class="block text-sm font-medium mb-1">Prime d'expatriation (FCFA)</label>
+                            <input type="number" id="prime-expatriation" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base">
+                        </div>
+                        
+                        <div>
+                            <label for="prime-autres" class="block text-sm font-medium mb-1">Autres primes (FCFA)</label>
+                            <input type="number" id="prime-autres" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base">
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label for="sursalaire" class="block text-sm font-medium mb-1">Sursalaire (FCFA)</label>
+                            <input type="number" id="sursalaire" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base">
+                        </div>
+                        
+                        <div>
+                            <label for="bonus" class="block text-sm font-medium mb-1">Bonus (FCFA)</label>
+                            <input type="number" id="bonus" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base">
+                        </div>
+                        
+                        <div>
+                            <label for="billet-avion" class="block text-sm font-medium mb-1">Billet d'avion</label>
+                            <select id="billet-avion" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base">
+                                <option value="oui">Oui</option>
+                                <option value="non">Non</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <h2 class="text-xl font-semibold mb-6 mt-8">Informations sur le passeport et visa</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label for="num-passeport" class="block text-sm font-medium mb-1">Numéro de passeport*</label>
+                            <input type="text" id="num-passeport" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="type-passeport" class="block text-sm font-medium mb-1">Type de passeport*</label>
+                            <select id="type-passeport" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                                <option value="">Sélectionner</option>
+                                <option value="ordinaire">Ordinaire</option>
+                                <option value="service">Service</option>
+                                <option value="diplomatique">Diplomatique</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="date-emission-passeport" class="block text-sm font-medium mb-1">Date d'émission*</label>
+                            <input type="date" id="date-emission-passeport" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="lieu-emission-passeport" class="block text-sm font-medium mb-1">Lieu d'émission*</label>
+                            <input type="text" id="lieu-emission-passeport" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="date-expiration-passeport" class="block text-sm font-medium mb-1">Date d'expiration*</label>
+                            <input type="date" id="date-expiration-passeport" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="num-visa" class="block text-sm font-medium mb-1">Numéro de visa (optionnel)</label>
+                            <input type="text" id="num-visa" class="w-full px-3 py-2 border dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white text-base">
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between mt-8">
+                        <button type="button" id="step-2-prev" class="border border-primary text-primary hover:bg-primary-light hover:text-white font-medium py-2 px-6 rounded-lg transition-colors">
+                            <i class="fas fa-arrow-left mr-2"></i> Précédent
+                        </button>
+                        <button type="button" id="step-2-next" class="bg-primary hover:bg-primary-dark text-white font-medium py-2 px-6 rounded-lg transition-colors">
+                            Suivant <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Document Upload -->
+                <div id="step-3" class="hidden slide-in">
+                    <h2 class="text-xl font-semibold mb-6">Téléchargez vos documents</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">Veuillez télécharger les documents suivants au format PDF. Les fichiers ne doivent pas dépasser 5 Mo.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="border dark:border-gray-700 rounded-lg p-4">
+                            <h3 class="font-medium mb-2">Contrat de travail*</h3>
+                            <div class="flex items-center">
+                                <input type="file" id="contrat" class="hidden" accept=".pdf">
+                                <label for="contrat" class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">Parcourir...</label>
+                                <span id="contrat-filename" class="ml-2 text-sm text-gray-600 dark:text-gray-400">Aucun fichier sélectionné</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border dark:border-gray-700 rounded-lg p-4">
+                            <h3 class="font-medium mb-2">Passeport*</h3>
+                            <div class="flex items-center">
+                                <input type="file" id="passeport" class="hidden" accept=".pdf">
+                                <label for="passeport" class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">Parcourir...</label>
+                                <span id="passeport-filename" class="ml-2 text-sm text-gray-600 dark:text-gray-400">Aucun fichier sélectionné</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border dark:border-gray-700 rounded-lg p-4">
+                            <h3 class="font-medium mb-2">Curriculum Vitae*</h3>
+                            <div class="flex items-center">
+                                <input type="file" id="cv" class="hidden" accept=".pdf">
+                                <label for="cv" class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">Parcourir...</label>
+                                <span id="cv-filename" class="ml-2 text-sm text-gray-600 dark:text-gray-400">Aucun fichier sélectionné</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border dark:border-gray-700 rounded-lg p-4">
+                            <h3 class="font-medium mb-2">Certificat Médical*</h3>
+                            <div class="flex items-center">
+                                <input type="file" id="medical" class="hidden" accept=".pdf">
+                                <label for="medical" class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">Parcourir...</label>
+                                <span id="medical-filename" class="ml-2 text-sm text-gray-600 dark:text-gray-400">Aucun fichier sélectionné</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border dark:border-gray-700 rounded-lg p-4">
+                            <h3 class="font-medium mb-2">Extrait du Casier Judiciaire*</h3>
+                            <div class="flex items-center">
+                                <input type="file" id="casier" class="hidden" accept=".pdf">
+                                <label for="casier" class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">Parcourir...</label>
+                                <span id="casier-filename" class="ml-2 text-sm text-gray-600 dark:text-gray-400">Aucun fichier sélectionné</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border dark:border-gray-700 rounded-lg p-4">
+                            <h3 class="font-medium mb-2">Visa d'entrée (optionnel)</h3>
+                            <div class="flex items-center">
+                                <input type="file" id="visa-entree" class="hidden" accept=".pdf">
+                                <label for="visa-entree" class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">Parcourir...</label>
+                                <span id="visa-entree-filename" class="ml-2 text-sm text-gray-600 dark:text-gray-400">Aucun fichier sélectionné</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between mt-8">
+                        <button type="button" id="step-3-prev" class="border border-primary text-primary hover:bg-primary-light hover:text-white font-medium py-2 px-6 rounded-lg transition-colors">
+                            <i class="fas fa-arrow-left mr-2"></i> Précédent
+                        </button>
+                        <button type="button" id="step-3-next" class="bg-primary hover:bg-primary-dark text-white font-medium py-2 px-6 rounded-lg transition-colors">
+                            Soumettre <i class="fas fa-check ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Application Status -->
+                <div id="step-4" class="hidden slide-in">
+                    <h2 class="text-xl font-semibold mb-6">Suivre votre demande</h2>
+                    
+                    <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-900 rounded-lg p-6 mb-8">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-green-500 rounded-full p-2 mr-3">
+                                <i class="fas fa-check text-white"></i>
+                            </div>
+                            <h3 class="text-lg font-medium text-green-800 dark:text-green-400">Demande soumise avec succès</h3>
+                        </div>
+                        <p class="text-green-700 dark:text-green-300">Votre demande de visa de travail a été soumise avec succès. Vous pouvez suivre l'état d'avancement de votre demande sur cette page.</p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-900 border dark:border-gray-700 rounded-lg p-6 mb-8">
+                        <h3 class="text-lg font-medium mb-4">Informations de la demande</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Numéro de demande</p>
+                                <p class="font-medium">WP-2023-12345</p>
+                            </div>
+                            
+                            <div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Date de soumission</p>
+                                <p class="font-medium">05/06/2023</p>
+                            </div>
+                            
+                            <div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Statut actuel</p>
+                                <p class="font-medium text-yellow-600 dark:text-yellow-400">En cours de traitement</p>
+                            </div>
+                            
+                            <div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Délai estimé</p>
+                                <p class="font-medium">7-10 jours ouvrables</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="border dark:border-gray-700 rounded-lg overflow-hidden">
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 border-b dark:border-gray-700">
+                            <h3 class="font-medium">Étapes de traitement</h3>
+                        </div>
+                        
+                        <div class="p-4">
+                            <ul class="space-y-6">
+                                <li class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="mt-1 bg-green-500 rounded-full p-1 w-6 h-6 flex items-center justify-center">
+                                            <i class="fas fa-check text-xs text-white"></i>
+                                        </div>
+                                        <div class="h-full w-px bg-gray-300 dark:bg-gray-600 mx-auto mt-1"></div>
+                                    </div>
+                                    <div class="flex-1 pb-6">
+                                        <div class="flex items-center">
+                                            <h4 class="text-lg font-medium">Soumission de la demande</h4>
+                                            <span class="ml-auto text-sm text-gray-500 dark:text-gray-400">05/06/2023</span>
+                                        </div>
+                                        <p class="text-gray-600 dark:text-gray-400 mt-1">Votre demande a été soumise avec succès.</p>
+                                    </div>
+                                </li>
+                                
+                                <li class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="mt-1 bg-green-500 rounded-full p-1 w-6 h-6 flex items-center justify-center">
+                                            <i class="fas fa-check text-xs text-white"></i>
+                                        </div>
+                                        <div class="h-full w-px bg-gray-300 dark:bg-gray-600 mx-auto mt-1"></div>
+                                    </div>
+                                    <div class="flex-1 pb-6">
+                                        <div class="flex items-center">
+                                            <h4 class="text-lg font-medium">Vérification des documents</h4>
+                                            <span class="ml-auto text-sm text-gray-500 dark:text-gray-400">06/06/2023</span>
+                                        </div>
+                                        <p class="text-gray-600 dark:text-gray-400 mt-1">Les documents fournis ont été vérifiés et sont conformes.</p>
+                                    </div>
+                                </li>
+                                
+                                <li class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="mt-1 bg-yellow-500 rounded-full p-1 w-6 h-6 flex items-center justify-center">
+                                            <i class="fas fa-clock text-xs text-white"></i>
+                                        </div>
+                                        <div class="h-full w-px bg-gray-300 dark:bg-gray-600 mx-auto mt-1"></div>
+                                    </div>
+                                    <div class="flex-1 pb-6">
+                                        <div class="flex items-center">
+                                            <h4 class="text-lg font-medium">Évaluation technique</h4>
+                                            <span class="ml-auto text-sm text-gray-500 dark:text-gray-400">En cours</span>
+                                        </div>
+                                        <p class="text-gray-600 dark:text-gray-400 mt-1">Votre demande est en cours d'évaluation par nos services techniques.</p>
+                                    </div>
+                                </li>
+                                
+                                <li class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="mt-1 bg-gray-300 dark:bg-gray-600 rounded-full p-1 w-6 h-6 flex items-center justify-center">
+                                            <i class="fas fa-money-bill text-xs text-gray-500 dark:text-gray-400"></i>
+                                        </div>
+                                        <div class="h-full w-px bg-gray-300 dark:bg-gray-600 mx-auto mt-1"></div>
+                                    </div>
+                                    <div class="flex-1 pb-6">
+                                        <div class="flex items-center">
+                                            <h4 class="text-lg font-medium">Paiement des frais</h4>
+                                            <span class="ml-auto text-sm text-gray-500 dark:text-gray-400">En attente</span>
+                                        </div>
+                                        <p class="text-gray-600 dark:text-gray-400 mt-1">Vous serez notifié lorsque le paiement des frais sera requis.</p>
+                                    </div>
+                                </li>
+                                
+                                <li class="flex">
+                                    <div class="flex-shrink-0 mr-4">
+                                        <div class="mt-1 bg-gray-300 dark:bg-gray-600 rounded-full p-1 w-6 h-6 flex items-center justify-center">
+                                            <i class="fas fa-file-alt text-xs text-gray-500 dark:text-gray-400"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center">
+                                            <h4 class="text-lg font-medium">Délivrance du visa</h4>
+                                            <span class="ml-auto text-sm text-gray-500 dark:text-gray-400">En attente</span>
+                                        </div>
+                                        <p class="text-gray-600 dark:text-gray-400 mt-1">Vous serez notifié lorsque votre visa sera prêt à être retiré.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between mt-8">
+                        <button type="button" id="back-to-home" class="border border-primary text-primary hover:bg-primary-light hover:text-white font-medium py-2 px-6 rounded-lg transition-colors">
+                            <i class="fas fa-home mr-2"></i> Retour à l'accueil
+                        </button>
+                        <button type="button" id="step-4-prev" class="bg-primary hover:bg-primary-dark text-white font-medium py-2 px-6 rounded-lg transition-colors">
+                            <i class="fas fa-print mr-2"></i> Imprimer récépissé
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 py-6 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-sm text-gray-600 dark:text-gray-400">&copy; 2023 eWorkPermit. Tous droits réservés.</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-light transition-colors">
+                        Conditions d'utilisation
+                    </a>
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-light transition-colors">
+                        Politique de confidentialité
+                    </a>
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary-light transition-colors">
+                        Assistance
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <div class="flex items-center">
+            <i class="fas fa-check-circle mr-2"></i>
+            <span id="notification-message">Opération réussie</span>
+        </div>
+    </div>
+
+    <script>
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        
+        // Check if dark mode is preferred
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        
+        // Listen for changes in color scheme preference
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+        
+        darkModeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+        
+        // Language dropdown toggle
+        const langToggle = document.getElementById('lang-toggle');
+        const langDropdown = document.getElementById('lang-dropdown');
+        
+        langToggle.addEventListener('click', () => {
+            langDropdown.classList.toggle('hidden');
+        });
+        
+        // Hide language dropdown when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!langToggle.contains(event.target) && !langDropdown.contains(event.target)) {
+                langDropdown.classList.add('hidden');
+            }
+        });
+        
+        // Auth tabs
+        const loginTab = document.getElementById('login-tab');
+        const registerTab = document.getElementById('register-tab');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        
+        loginTab.addEventListener('click', () => {
+            loginTab.classList.add('border-b-2', 'border-primary', 'text-primary');
+            registerTab.classList.remove('border-b-2', 'border-primary', 'text-primary');
+            registerTab.classList.add('text-gray-500', 'dark:text-gray-400');
+            
+            loginForm.classList.remove('hidden');
+            registerForm.classList.add('hidden');
+        });
+        
+        registerTab.addEventListener('click', () => {
+            registerTab.classList.add('border-b-2', 'border-primary', 'text-primary');
+            loginTab.classList.remove('border-b-2', 'border-primary', 'text-primary');
+            loginTab.classList.add('text-gray-500', 'dark:text-gray-400');
+            
+            registerForm.classList.remove('hidden');
+            loginForm.classList.add('hidden');
+        });
+        
+        // Toggle password visibility
+        const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+        
+        togglePasswordButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const input = button.parentElement.querySelector('input');
+                const icon = button.querySelector('i');
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+        });
+        
+        // Login & Registration functionality
+        const loginButton = document.getElementById('login-button');
+        const registerButton = document.getElementById('register-button');
+        const authContainer = document.getElementById('auth-container');
+        const applicationContainer = document.getElementById('application-container');
+        
+        loginButton.addEventListener('click', () => {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (email && password) {
+                authContainer.classList.add('hidden');
+                applicationContainer.classList.remove('hidden');
+                showNotification('Connexion réussie');
+            } else {
+                showNotification('Veuillez remplir tous les champs', 'error');
+            }
+        });
+        
+        registerButton.addEventListener('click', () => {
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const phone = document.getElementById('register-phone').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            
+            if (name && email && phone && password && confirmPassword) {
+                if (password === confirmPassword) {
+                    authContainer.classList.add('hidden');
+                    applicationContainer.classList.remove('hidden');
+                    showNotification('Inscription réussie');
+                } else {
+                    showNotification('Les mots de passe ne correspondent pas', 'error');
+                }
+            } else {
+                showNotification('Veuillez remplir tous les champs', 'error');
+            }
+        });
+        
+        // Multi-step form navigation
+        const step1 = document.getElementById('step-1');
+        const step2 = document.getElementById('step-2');
+        const step3 = document.getElementById('step-3');
+        const step4 = document.getElementById('step-4');
+        
+        const step1Next = document.getElementById('step-1-next');
+        const step2Prev = document.getElementById('step-2-prev');
+        const step2Next = document.getElementById('step-2-next');
+        const step3Prev = document.getElementById('step-3-prev');
+        const step3Next = document.getElementById('step-3-next');
+        const step4Prev = document.getElementById('step-4-prev');
+        const backToHome = document.getElementById('back-to-home');
+        
+        const steps = document.querySelectorAll('.step');
+        const stepLines = document.querySelectorAll('.step-line');
+        const currentStepElement = document.getElementById('current-step');
+        const stepTitleElement = document.getElementById('step-title');
+        
+        const stepTitles = [
+            'Créer la demande',
+            'Télécharger documents',
+            'Suivre la demande',
+            'Retirer le visa'
+        ];
+        
+        step1Next.addEventListener('click', () => {
+            step1.classList.add('hidden');
+            step2.classList.remove('hidden');
+            updateProgressIndicator(2);
+        });
+        
+        step2Prev.addEventListener('click', () => {
+            step2.classList.add('hidden');
+            step1.classList.remove('hidden');
+            updateProgressIndicator(1);
+        });
+        
+        step2Next.addEventListener('click', () => {
+            step2.classList.add('hidden');
+            step3.classList.remove('hidden');
+            updateProgressIndicator(3);
+        });
+        
+        step3Prev.addEventListener('click', () => {
+            step3.classList.add('hidden');
+            step2.classList.remove('hidden');
+            updateProgressIndicator(2);
+        });
+        
+        step3Next.addEventListener('click', () => {
+            step3.classList.add('hidden');
+            step4.classList.remove('hidden');
+            updateProgressIndicator(4);
+            showNotification('Demande soumise avec succès');
+        });
+        
+        backToHome.addEventListener('click', () => {
+            step4.classList.add('hidden');
+            step1.classList.remove('hidden');
+            updateProgressIndicator(1);
+        });
+        
+        // Update progress indicator
+        function updateProgressIndicator(stepIndex) {
+            // Update step numbers
+            steps.forEach((step, index) => {
+                if (index < stepIndex) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+            
+            // Update connecting lines
+            stepLines.forEach((line, index) => {
+                if (index < stepIndex - 1) {
+                    line.classList.add('active');
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+            
+            // Update mobile indicator
+            currentStepElement.textContent = stepIndex;
+            stepTitleElement.textContent = stepTitles[stepIndex - 1];
+        }
+        
+        // File upload handling
+        const fileInputs = [
+            { input: document.getElementById('contrat'), filename: document.getElementById('contrat-filename') },
+            { input: document.getElementById('passeport'), filename: document.getElementById('passeport-filename') },
+            { input: document.getElementById('cv'), filename: document.getElementById('cv-filename') },
+            { input: document.getElementById('medical'), filename: document.getElementById('medical-filename') },
+            { input: document.getElementById('casier'), filename: document.getElementById('casier-filename') },
+            { input: document.getElementById('visa-entree'), filename: document.getElementById('visa-entree-filename') }
+        ];
+        
+        fileInputs.forEach(({ input, filename }) => {
+            input.addEventListener('change', () => {
+                if (input.files.length > 0) {
+                    filename.textContent = input.files[0].name;
+                } else {
+                    filename.textContent = 'Aucun fichier sélectionné';
+                }
+            });
+        });
+        
+        // Notification toast
+        const notification = document.getElementById('notification');
+        const notificationMessage = document.getElementById('notification-message');
+        
+        function showNotification(message, type = 'success') {
+            notificationMessage.textContent = message;
+            
+            if (type === 'error') {
+                notification.classList.remove('bg-green-500');
+                notification.classList.add('bg-red-500');
+            } else {
+                notification.classList.remove('bg-red-500');
+                notification.classList.add('bg-green-500');
+            }
+            
+            notification.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                notification.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
